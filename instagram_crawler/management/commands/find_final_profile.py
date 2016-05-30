@@ -57,28 +57,28 @@ def _find_json_from_html(jQuery):
 	return None
 
 def _save_data(user, link, visit_link):
-	try:
-		finalProfile.objects.get(instagram_profile_id = user.get('id'))
-	except finalProfile.DoesNotExist:
-		phone_number = re.findall(PHONE_NUMBER_REGEX, user.get('biography')) 
-		email = re.findall(EMAIL_REGEX, user.get('biography')) 
-		website = re.findall(URL_REGEX, user.get('biography')) 
-
-		finalProfile.objects.create(
-			name = user.get('full_name'),
-			url = link,
-			user_name = visit_link.username,
-			follower_count = user.get('followed_by').get('count'),
-			follows_count = user.get('follows').get('count'),
-			post_count = user.get('media').get('count'),
-			profile_pic_url = user.get('profile_pic_url'),
-			instagram_profile_id = user.get('id'),
-			biography = user.get('biography'),
-			external_url = user.get('external_url'),
-			email = json.dumps(email),
-			website = json.dumps(website),
-			phone = json.dumps(phone_number)
-		)
+	if user.get('full_name') and user.get('followed_by').get('count') and user.get('follows').get('count') and user.get('media').get('count') and user.get('id'):
+		try:
+			finalProfile.objects.get(instagram_profile_id = user.get('id'))
+		except finalProfile.DoesNotExist:
+			phone_number = re.findall(PHONE_NUMBER_REGEX, user.get('biography')) 
+			email = re.findall(EMAIL_REGEX, user.get('biography')) 
+			website = re.findall(URL_REGEX, user.get('biography')) 
+			finalProfile.objects.create(
+				name = user.get('full_name'),
+				url = link,
+				user_name = visit_link.username,
+				follower_count = user.get('followed_by').get('count'),
+				follows_count = user.get('follows').get('count'),
+				post_count = user.get('media').get('count'),
+				profile_pic_url = user.get('profile_pic_url'),
+				instagram_profile_id = user.get('id'),
+				biography = user.get('biography'),
+				external_url = user.get('external_url'),
+				email = json.dumps(email),
+				website = json.dumps(website),
+				phone = json.dumps(phone_number)
+			)
 
 
 # Main class, from where the execution starts
