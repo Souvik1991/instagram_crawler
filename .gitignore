@@ -1,0 +1,6 @@
+*.pyc
+*~
+*.swp
+.DS_Store
+!instagram_crawler/migrations
+instagram_crawler/migrations/*
