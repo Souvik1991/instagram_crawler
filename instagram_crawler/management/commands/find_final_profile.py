@@ -71,7 +71,7 @@ def _save_data(user, link, visit_link):
 			follower_count = user.get('followed_by').get('count'),
 			follows_count = user.get('follows').get('count'),
 			post_count = user.get('media').get('count'),
-			profile_pic_url = user.get('profile_pic_url_hd'),
+			profile_pic_url = user.get('profile_pic_url'),
 			instagram_profile_id = user.get('id'),
 			biography = user.get('biography'),
 			external_url = user.get('external_url'),
