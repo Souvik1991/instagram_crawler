@@ -68,17 +68,17 @@ class foundProfileUsingHashTag(models.Model):
 
 
 class finalProfile(models.Model):
-	name = models.CharField(null=False, max_length=150)
-	url = models.CharField(null=False, max_length=200)
+	name = models.CharField(max_length=150)
+	url = models.CharField(max_length=200)
 
-	user_name = models.CharField(null=False, max_length=100)
+	user_name = models.CharField(max_length=100)
 	follower_count = models.IntegerField(null=False, default=0)
 	follows_count = models.IntegerField(null=False, default=0)
 	post_count = models.IntegerField(null=False, default=0)
-	profile_pic_url = models.CharField(null=True, blank=True, max_length=250)
+	profile_pic_url = models.CharField(max_length=250)
 	instagram_profile_id = models.IntegerField(null=False, unique=True)
-	biography = models.TextField(null=True, blank=True, max_length=1500)
-	external_url = models.CharField(null=True, blank=True, max_length=250)
+	biography = models.TextField(max_length=1500)
+	external_url = models.CharField(max_length=250)
 
 	email = models.TextField(max_length=500, default="[]")
 	website = models.TextField(max_length=500, default="[]")
