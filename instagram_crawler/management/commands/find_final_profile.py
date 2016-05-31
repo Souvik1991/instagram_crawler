@@ -46,16 +46,18 @@ def _get_next_link():
 # find json from html
 def _find_json_from_html(jQuery):
 	print colored('Log : Finding json from html.', 'green')
-	all_scripts = jQuery('body').find('script[type="text/javascript"]')
-	for script in all_scripts:
-		try:
-			script = pq(script)
-			script_text = script.text().strip()
-			if script_text and '._sharedData' in script_text:
-				script_text = script_text.replace('window._sharedData = ', '').replace('};','}')
-				try: return json.loads(script_text)
-				except: return None
-		except Exception as e: print e
+	try:
+		all_scripts = jQuery('body').find('script[type="text/javascript"]')
+		for script in all_scripts:
+			try:
+				script = pq(script)
+				script_text = script.text().strip()
+				if script_text and '._sharedData' in script_text:
+					script_text = script_text.replace('window._sharedData = ', '').replace('};','}')
+					try: return json.loads(script_text)
+					except: return None
+			except Exception as e: print e
+	except Exception as e: print e
 	return None
 
 def _save_data(user, link, visit_link):
