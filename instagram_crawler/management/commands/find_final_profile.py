@@ -52,7 +52,10 @@ def _find_json_from_html(jQuery):
 		script_text = script.text().strip()
 		if script_text and '._sharedData' in script_text:
 			script_text = script_text.replace('window._sharedData = ', '').replace('};','}')
-			return json.loads(script_text)
+			try:
+				return json.loads(script_text)
+			except:
+				return None
 
 	return None
 
@@ -97,7 +100,7 @@ class Command(BaseCommand):
 							jQuery = pq(html)
 							data = _find_json_from_html(jQuery)
 
-							if data.get('entry_data') and data.get('entry_data').get('ProfilePage') and data.get('entry_data').get('ProfilePage')[0].get('user').get('followed_by').get('count') > 25000:
+							if data and data.get('entry_data') and data.get('entry_data').get('ProfilePage') and data.get('entry_data').get('ProfilePage')[0].get('user').get('followed_by').get('count') > 25000:
 								_save_data(data.get('entry_data').get('ProfilePage')[0].get('user'), link, visit_link)
 
 						visit_link.done = True
