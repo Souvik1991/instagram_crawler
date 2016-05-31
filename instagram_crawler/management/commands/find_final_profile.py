@@ -100,7 +100,7 @@ class Command(BaseCommand):
 						if html:
 							jQuery = pq(html)
 							data = _find_json_from_html(jQuery)
-
+							print data
 							if data and data.get('entry_data') and data.get('entry_data').get('ProfilePage') and data.get('entry_data').get('ProfilePage')[0].get('user').get('followed_by').get('count') > 25000:
 								_save_data(data.get('entry_data').get('ProfilePage')[0].get('user'), link, visit_link)
 
