@@ -65,9 +65,15 @@ def _save_data(user, link, visit_link):
 		try:
 			finalProfile.objects.get(instagram_profile_id = user.get('id'))
 		except finalProfile.DoesNotExist:
-			phone_number = re.findall(PHONE_NUMBER_REGEX, user.get('biography')) 
-			email = re.findall(EMAIL_REGEX, user.get('biography')) 
-			website = re.findall(URL_REGEX, user.get('biography')) 
+			if user.get('biography'):
+				phone_number = re.findall(PHONE_NUMBER_REGEX, user.get('biography')) 
+				email = re.findall(EMAIL_REGEX, user.get('biography')) 
+				website = re.findall(URL_REGEX, user.get('biography')) 
+			else:
+				phone_number = [] 
+				email = [] 
+				website = []
+
 			finalProfile.objects.create(
 				name = user.get('full_name'),
 				url = link,
@@ -100,7 +106,6 @@ class Command(BaseCommand):
 						if html:
 							jQuery = pq(html)
 							data = _find_json_from_html(jQuery)
-							print data
 							if data and data.get('entry_data') and data.get('entry_data').get('ProfilePage') and data.get('entry_data').get('ProfilePage')[0].get('user').get('followed_by').get('count') > 25000:
 								_save_data(data.get('entry_data').get('ProfilePage')[0].get('user'), link, visit_link)
 
