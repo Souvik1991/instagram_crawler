@@ -17,7 +17,7 @@ HASHTAGS = [
 	'lonelyplanetindia',
 	'mymumbai'
 ]
-TOKEN = '1542414732.f5fc7d4.439556a359924ef9b57d792db19ecdea'
+TOKEN = '< YOUR ACCESS TOKEN >'
 API_LINK = 'https://api.instagram.com/v1/tags/{}/media/recent?access_token={}'
 
 def _make_network_call(actionLink = "", method = "get", headerObject = {}, dataObject = {}):
